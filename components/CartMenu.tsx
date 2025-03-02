@@ -43,6 +43,18 @@ export function CartMenu() {
     (sum, item) => sum + item.price * item.qty,
     0
   );
+  async function checkout() {
+    try {
+      // send cartitems to endpoint
+      const baseUrl =process.env.NEXT_PUBLIC_BASE_URL
+      const response =await fetch("")
+      console.log("payment done")
+    } catch (error) {
+      console.log(error)
+      
+    }
+    
+  }
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -63,7 +75,7 @@ export function CartMenu() {
           </SheetHeader>
           {/* CONTENT HWRE */}
           <div className="">
-            {cartItems.map((item, i) => {
+            {cartItems.map((item:any, i) => {
               return (
                 <div
                   key={i}
@@ -89,12 +101,12 @@ export function CartMenu() {
                   <div className="space-y-2">
                     <h2 className="text-sx">${item.price}</h2>
                     <div className="flex items-center space-x-3">
-                      <button className="border shadow rounded flex items-center justify-center w-10 h-7">
+                      <button title="Increase quantity" className="border shadow rounded flex items-center justify-center w-10 h-7">
                         <Minus className="w-4 h-4" />
                       </button>
 
                       <p>1</p>
-                      <button className="border shadow rounded flex items-center justify-center w-10 h-7 bg-slate-800 text-white">
+                      <button title="Increase quantity" className="border shadow rounded flex items-center justify-center w-10 h-7 bg-slate-800 text-white">
                         <Plus className="w-4 h-4" />
                       </button>
                     </div>
@@ -116,10 +128,8 @@ export function CartMenu() {
                 Continue Shopping
               </Button>
             </SheetClose>
-            <Button asChild>
-              <Link href="/checkout">
-                <span>Proceed to Checkout</span>
-              </Link>
+            <Button onClick={checkout}>
+              <span>Proceed to Checkout</span>
             </Button>
           </SheetFooter>
         </SheetContent>
